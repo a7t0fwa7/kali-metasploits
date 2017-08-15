@@ -18,7 +18,9 @@ docker run -it -p 5555:5555 polyverse-internal.jfrog.io/kali-metasploit msfconso
 ```
 
 ### c-exploit.sh
-1. In this repo, perform "pv build -r polyverse-internal.jfrog.io docker". This will create the Docker container image "polyverse-internal.jfrog.io/kali-metasploit".
+In this example, an attacker container (`polyverse-internal.jfrog.io/kali-metasploit`) will get a reverse-shell from the victim container (`polyverse/c-exploit`).
+
+1. In this repo, perform `pv build -r polyverse-internal.jfrog.io docker`. This will create the Docker container image `polyverse-internal.jfrog.io/kali-metasploit`.
 2. `cd ..` to move up a folder and then `git clone https://github.com/polyverse-security/c-exploit.git`. If you've already cloned, just go to the folder and `git pull`.
 3. Modify evil.c line `#define IPADDR "\xac\x11\x00\x03"` with the hex value representation of the results from `docker run -it polyverse-internal.jfrog.io/kali-metasploit ifconfig eth0 | grep inet | awk '{print $2}'` This is the IP address of the kali-metasploit container -- the target for the reverse shell.
 4. `pv build docker` to create a new version of `polyverse/c-exploit`.
