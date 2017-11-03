@@ -8,7 +8,6 @@ fi
 LPORT=5555
 
 # Remote host is the local host for development
-RHOST="$LHOST"
-RPORT=8080
+RHOST=$LHOST
 
-docker run -it -p $LPORT:$LPORT -v $PWD/exploits:/usr/share/metasploit-framework/modules/exploits/custom polyverse-internal.jfrog.io/kali-metasploit msfconsole -x "use exploit/custom/tcp_echo_server.rb; set RHOST $RHOST; set RPORT $RPORT; set LHOST $LHOST; set LPORT $LPORT"
+docker run -it -p 5555:5555 -v $PWD/exploits:/usr/share/metasploit-framework/modules/exploits/custom polyverse-internal.jfrog.io/kali-metasploit msfconsole -x "use exploit/custom/tcp_echo_server.rb; set RHOST $RHOST; set LHOST $LHOST"
