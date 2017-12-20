@@ -7,4 +7,4 @@ if [[ "$LHOST" == "" ]]; then
 fi
 RHOST=$LHOST
 
-docker run -it -p 5555:5555 -v $PWD/exploits:/usr/share/metasploit-framework/modules/exploits/custom hub.polyverse.io/kali-metasploit msfconsole -x "use exploit/custom/tcp_echo_server.rb; set RHOST $RHOST; set LHOST $LHOST"
+docker run -it -p 5555:5555 -v $PWD/exploits:/usr/share/metasploit-framework/modules/exploits/custom polyverse/kali-metasploit msfconsole -x "use exploit/custom/tcp_echo_server.rb; set RHOST $RHOST; set LHOST $LHOST"
