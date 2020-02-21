@@ -1,4 +1,3 @@
-
 #!/bin/bash
 set -e
 
@@ -8,15 +7,20 @@ declare -r PV_NAME="kali-metasploit"
 
 
 main() {
-	# build the image
-	build
+	# Push the image
+	push
         [ $? -ne 0 ] && return 1
 
 	return 0
 }
 
-build() {
-	docker build -t "${PV_DOCKER_REGISTRY}/${PV_NAME}:latest" -t "${PV_DOCKER_REGISTRY}/${PV_NAME}:${PV_GIT_COMMIT}" .
+push() {
+	# Push "latest" (for convenience)
+        docker push "$PV_DOCKER_REGISTRY/${PV_NAME}:latest"
+        [ $? -ne 0 ] && return 1
+
+	# Push tagged image
+        docker push "$PV_DOCKER_REGISTRY/${PV_NAME}:${PV_GIT_COMMIT}"
         [ $? -ne 0 ] && return 1
 
         return 0
