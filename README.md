@@ -3,7 +3,7 @@ Containerized Kali Linux with Metasploit Framework installed. Repo is designed t
 
 ## Build
 ```
-pv build docker
+bash build.sh
 ```
 
 ## Usage
