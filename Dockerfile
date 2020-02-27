@@ -1,4 +1,4 @@
-FROM kalilinux/kali-linux-docker@sha256:ddb33d548851d58a5ac351ac5ad3579fb7af5c6e17d7b70bbf49102d9865a1a3
+FROM kalilinux/kali
 
 RUN apt-get -y update
 RUN apt-get -y install metasploit-framework net-tools ruby vim
