@@ -7,7 +7,7 @@ declare -r rem=readhook-node-echo-server
 docker rm -f $loc $rem 2>/dev/null
 
 # Start the remote target and get its IP address
-docker run -dt --rm --name $rem polyverse/$rem:5c9e1f804323491612c55a869c78a35a98e12b65
+docker run -dt --rm --name $rem polyverse/$rem:d5f0a0fc27530088efea7cc002e826d7195b1cd4
 RHOST=$(docker exec -it $rem tail -n1 /etc/hosts | awk '{print $1}')
 
 # Get the IP address of the attacker (that we will hopefully get again)
