@@ -20,7 +20,7 @@ build() {
         if [ -z "$(git status -s -uno)" ]; then
                 declare -r PV_GIT_COMMIT="$(git rev-parse --verify HEAD)"
 
-                docker tag "${PV_DOCKER_REGISTRY}/${PV_NAME}.${PV_TARGET}:latest" "${PV_DOCKER_REGISTRY}/${PV_NAME}.${PV_TARGET}:${PV_GIT_COMMIT}"
+                docker tag "${PV_DOCKER_REGISTRY}/${PV_NAME}:latest" "${PV_DOCKER_REGISTRY}/${PV_NAME}:${PV_GIT_COMMIT}"
                 [ $? -ne 0 ] && return 1
         fi
 
