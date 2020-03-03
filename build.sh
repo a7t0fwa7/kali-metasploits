@@ -13,7 +13,7 @@ main() {
 }
 
 build() {
-        # Build the (close to production) "base" image
+        # Build the image
         docker build -t "${PV_NAME}" -t "${PV_DOCKER_REGISTRY}/${PV_NAME}:latest" -t "${PV_DOCKER_REGISTRY}/${PV_NAME}:${PV_GIT_COMMIT}" .
         [ $? -ne 0 ] && return 1
 
