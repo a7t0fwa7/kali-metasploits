@@ -3,13 +3,13 @@
 declare -r loc=kali-metasploit
 declare -r rem=readhook-node-echo-server
 #declare -r sha=d5f0a0fc27530088efea7cc002e826d7195b1cd4 # readhook-node-echo-server from master branch
-declare -r sha=19b6aa2124444b923e7544834f5deea706606d76 # readhook-node-echo-server from jitrop branch
+declare -r sha=30ccb08b07302bc1a36e16b3587d52fd5c8f9d33 # readhook-node-echo-server from jitrop branch
 
 # Get rid of any hangers-on
-docker rm -f $loc $rem 2>/dev/null
+#docker rm -f $loc $rem 2>/dev/null
 
 # Start the remote target and get its IP address
-docker run --privileged -dt --rm --name $rem polyverse/$rem:$sha
+#docker run --privileged -dt --rm --name $rem polyverse/$rem:$sha
 RHOST=$(docker exec -it $rem tail -n1 /etc/hosts | awk '{print $1}')
 
 # Get the IP address of the attacker (that we will hopefully get again)
