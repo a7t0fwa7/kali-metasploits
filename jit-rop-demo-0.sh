@@ -11,7 +11,7 @@ docker rm -f $loc $rem 2>/dev/null
 docker run --rm -it --privileged 507760724064.dkr.ecr.us-west-2.amazonaws.com/mtd-module:175487-b03413 >/dev/null
 
 # Start the remote target and get its IP address
-docker run --privileged -dt --rm --name $rem polyverse/$rem:$sha
+docker run --privileged -dt --rm --name $rem -e PV_TWIDDLER_INITIAL_DELAY=3600000 polyverse/$rem:$sha
 RHOST=$(docker exec -it $rem tail -n1 /etc/hosts | awk '{print $1}')
 
 # Get the IP address of the attacker (that we will hopefully get again)
