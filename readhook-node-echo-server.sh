@@ -2,7 +2,7 @@
 
 declare -r loc=kali-metasploit
 declare -r rem=readhook-node-echo-server
-declare -r sha=a8269980392f353ede0acfb3fe5cb9919c286681 # readhook-node-echo-server from jitrop branch
+declare -r sha=e3c332cbbd205a1a7f0344102f5085a01e143d31 # readhook-node-echo-server from jitrop branch
 
 # Get rid of any hangers-on
 docker rm -f $loc $rem 2>/dev/null
